@@ -14,12 +14,8 @@ const io = require('socket.io')(server, {
 });
 
 io.on('connection', socket => {
-
-    socket.on('join', ({body}, callback) => {
-        console.log(body);
-        // const {error, user} = updateUser(body);
-        // if (error) callback(error);
-        // socket.emit('updatedUser', {user});
+    socket.on('statusUpdated', (body, callback) => {
+        socket.emit('message', {...body});
         callback();
     })
 })

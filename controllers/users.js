@@ -4,24 +4,12 @@ const _ = require("underscore");
 const postUser = (body) => {
     return new Promise((resolve, reject) => {
         try {
-            pool.query('SELECT * FROM user', (error, result) => {
-                if (error) {
-                    return reject(error)
-                }
-                const existingUser = result.rows.filter(row => row.name === body.name);
-                if(existingUser.length > 0) {
-                    return resolve({
-                        message: `User cannot be created, user ${body.name} already exists`,
-                        code: 400
-                    })
-                }
-                pool.query('INSERT INTO user (name, dob, smoke, language, nextDate)', [body.name, body.dob, body.smoke, body.language, body.nextDate], (error, results) => {
-                    if(error) return  reject(error)
-                    return resolve ({
-                        username:  body.name,
-                        message: `user ${body.name} has been created`,
-                        code: 200
-                    })
+            pool.query(`INSERT INTO public."users" (name, dob, smoke, language, nextavail, status) VALUES ($1, $2, $3, $4, $5, $6)`, [body.name, body.dob, body.smoke, body.language, body.nextavail, body.status], (error, results) => {
+                if(error) return  reject(error)
+                return resolve ({
+                    username:  body.name,
+                    message: `user ${body.name} has been created`,
+                    code: 200
                 })
             })
 
@@ -31,13 +19,14 @@ const postUser = (body) => {
     })
 }
 
-const updateUser = (user) => {
+const updateUserStatus = (user) => {
     return new Promise((resolve, reject) => {
         try {
-            pool.query(`UPDATE user SET status = ${user.body.status} WHERE id = ${user.body.id}`, (error, result) => {
+            pool.query(`UPDATE public.users SET status = $1 WHERE id = $2`, [user.status, user.id], (error, result) => {
                 if(error) return  reject(error)
                 return resolve({
-                    message : `user ${user.body.name} has been updated`
+                    message : `user ${user.name} has been updated`,
+                    data : {...user}
                 })
             });
 
@@ -50,7 +39,7 @@ const updateUser = (user) => {
 const getUsers = () => {
     return new Promise((resolve, reject) => {
         try {
-            pool.query(`SELECT * FROM public."user"`, (error, result) => {
+            pool.query(`SELECT * FROM public."users"`, (error, result) => {
                 if (error) return  reject(error);
                 return resolve(result.rows);
             })
@@ -59,4 +48,4 @@ const getUsers = () => {
         }
     })
 }
-module.exports = {postUser, updateUser, getUsers}
+module.exports = {postUser, updateUserStatus, getUsers}

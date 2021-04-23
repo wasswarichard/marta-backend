@@ -1,10 +1,10 @@
 const express = require('express');
+const cors = require('cors')
 const http = require('http');
 const app = express();
-const updateUser = require('./controllers/users').updateUser;
-const cors = require('cors')
 app.use(cors())
 app.use("/users", require("./routes/users/v1a"));
+
 
 const server =  http.createServer(app);
 const io = require('socket.io')(server, {

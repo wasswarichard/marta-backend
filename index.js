@@ -16,6 +16,7 @@ const io = require('socket.io')(server, {
 io.on('connection', socket => {
     socket.on('statusUpdated', (body, callback) => {
         socket.emit('message', {...body});
+        socket.broadcast.emit('message',{ ...body})
         callback();
     })
 })

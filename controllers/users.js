@@ -9,7 +9,6 @@ const postUser = (body) => {
                 return resolve ({
                     username:  body.name,
                     message: `user ${body.name} has been created`,
-                    code: 200
                 })
             })
 

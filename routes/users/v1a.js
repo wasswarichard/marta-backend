@@ -6,21 +6,6 @@ const postUser = require("../../controllers/users").postUser;
 const updateUserStatus = require("../../controllers/users").updateUserStatus;
 
 router.get('/v1a/users', (req, res) => {
-
-
-    // postUser({
-    //     name : "Wasswa",
-    //     dob: new Date(),
-    //     smoke: "smoker",
-    //     language: "C2",
-    //     nextavail: new Date(),
-    //     status: "SELECTION"
-    // }).then(users => {
-    //     console.log(users)
-    // })
-    // .catch(error => {
-    //     console.log(error)
-    // })
     getUsers()
             .then(users => {
                 res.writeHead(200);
@@ -29,7 +14,14 @@ router.get('/v1a/users', (req, res) => {
             .catch(error => {
                 res.status(400).send(error)
             })
+})
 
+router.post('/v1a/user/create', jsonParser, (req, res) => {
+    postUser({...req.body})
+        .then(user =>{
+            return res.send(JSON.stringify(user))
+        })
+        .catch(error => res.status(400).send(error))
 })
 
 router.put('/v1a/user/update', jsonParser, (req, res) => {

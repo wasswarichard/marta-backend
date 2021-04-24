@@ -12,7 +12,8 @@ const createDataTable = () => {
         dob character varying(100),
         smoke character varying(100),
         language character varying(100),
-        nextavail character varying(100)
+        nextavail character varying(100),
+        status character varying(100)
     )
     `;
     pool.query(dataCreateQuery)

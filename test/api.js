@@ -44,7 +44,7 @@ describe('PUT /User', () => {
                 "language": "B2",
                 "nextavail": "4/23/2014",
                 "status": "SELECTION"
-            })
+            }, done())
             .then(res => {
                 expect(res.text).to.be.a('string');
                 done();

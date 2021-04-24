@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
     "start": "node index.js",
-    "create:tables" : "node ./db/dbConnection --create-data-tables",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "create:tables": "node ./db/dbConnection --create-data-tables",
+    "test": "mocha --recursive --exit"
   },
   "keywords": [],
   "author": "",
@@ -15,12 +14,16 @@
   "dependencies": {
     "atob": "^2.1.2",
     "body-parser": "^1.18.3",
+    "chai": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "file-regex": "^3.1.0",
+    "mocha": "^8.3.2",
+    "mockgoose": "^8.0.4",
     "pg": "^8.6.0",
-    "underscore": "^1.9.2",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "supertest": "^6.1.3",
+    "underscore": "^1.9.2"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

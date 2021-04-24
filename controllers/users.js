@@ -1,5 +1,4 @@
-const pool =  require("../config/database");
-const _ = require("underscore");
+const pool = require("../db/pool")
 
 const postUser = (body) => {
     return new Promise((resolve, reject) => {
@@ -47,4 +46,5 @@ const getUsers = () => {
         }
     })
 }
+
 module.exports = {postUser, updateUserStatus, getUsers}

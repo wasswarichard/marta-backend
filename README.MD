@@ -26,7 +26,6 @@
     The request body should be
     ```javascript
       {
-           "id": 30,
            "name": "Trust",
            "dob": "4/23/2004",
            "smoke": "Non-smoker",
